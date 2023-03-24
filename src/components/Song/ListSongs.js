@@ -19,8 +19,8 @@ export default function ListSongs() {
       <table className="table-auto w-full">
         <thead className="text-white h-12">
           <tr>
-            <th className="w-[5%]"></th>
-            <th className="w-[5%]">No.</th>
+            <th className="lg:w-[5%] w-[10%]"></th>
+            <th className="lg:w-[5%] w-[10%]">No.</th>
             <th className="text-left">Title</th>
             <th className="w-[10%]">Author</th>
             <th className="w-[10%]">
@@ -67,9 +67,9 @@ export default function ListSongs() {
                   >
                     <path
                       className="group-hover:fill-[#a83f39] group-hover:animate-pulse transition-all"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     />
                   </svg>

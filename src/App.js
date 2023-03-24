@@ -1,7 +1,6 @@
 import Navbar from "components/Layout/Navbar";
 import Play from "components/Layout/Play";
 import NotFound from "components/NotFound";
-import Playing from "components/Song/Playing";
 import { PlayProvider, usePlayContext } from "contexts/PlayContext";
 import { SongProvider } from "contexts/SongContext";
 import { useCurrentUser, UserProvider } from "contexts/UserContext";

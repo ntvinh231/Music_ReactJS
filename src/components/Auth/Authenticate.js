@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import {useCurrentUser} from "contexts/UserContext"
 import "./Logo.css";
 
-export default function Authenticate() {
+export default function Authenticate({padding}) {
   const [show, setShow] = useState(1);
   const tab = (e) => {
     setShow(e);
@@ -14,12 +14,12 @@ export default function Authenticate() {
 
   return (
     <div>
-      <div className="flex">
-        <button className="text-white" onClick={() => tab(2)}>
+      <div className={`${!padding && 'flex' }`}>
+        <button className={`${padding && ' p-5 ' } text-white`} onClick={() => tab(2)}>
           Sign In
         </button>
         <p className="text-white text-xl mt-[-2px] mr-3 ml-3">|</p>
-        <button className="text-white " onClick={() => tab(3)}>
+        <button className={`${padding && ' p-5 ' }  text-white`} onClick={() => tab(3)}>
           Sign Up
         </button>
       </div>
@@ -35,6 +35,7 @@ const Login = ({ tab }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {setRefresh} = useCurrentUser();
+
   function handleSubmit(e) {
     e.preventDefault();
     requestGuest({
@@ -50,6 +51,7 @@ const Login = ({ tab }) => {
         await localStorage.setItem("token", res.accessToken);
         await localStorage.setItem("1", 1);
         await tab(1);
+        window.location.reload();
         setRefresh(Date.now())
       }
     }).catch(e=>{
@@ -74,7 +76,7 @@ const Login = ({ tab }) => {
             <div className="mt-8">
                 <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Sign in</button>
             </div>
-            <a href="#" className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+            <button className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
                 <div className="px-4 py-3">
                     <svg className="h-6 w-6" viewBox="0 0 40 40">
                         <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107"/>
@@ -84,7 +86,7 @@ const Login = ({ tab }) => {
                     </svg>
                 </div>
                 <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">Sign in with Google</h1>
-            </a>
+            </button>
       </form>
     </Modal>
   );
@@ -118,6 +120,10 @@ const Register = ({ tab }) => {
         } else {
           toast.error("Có lỗi, vui lòng thử lại");
         }
+      }).catch(e=>{
+        if(e.response.data.error.status === 409){
+          toast.warning("User này đã tồn tại");
+        }
       });
     }
   };
@@ -143,7 +149,7 @@ const Register = ({ tab }) => {
             <div className="mt-8">
                 <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Sign Up</button>
             </div>
-            <a href="#" className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+            <div className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
                 <div className="px-4 py-3">
                     <svg className="h-6 w-6" viewBox="0 0 40 40">
                         <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107"/>
@@ -153,7 +159,7 @@ const Register = ({ tab }) => {
                     </svg>
                 </div>
                 <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">Sign up with Google</h1>
-            </a>
+            </div>
       </form>
     </Modal>
   );
