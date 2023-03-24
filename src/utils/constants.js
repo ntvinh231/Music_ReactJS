@@ -1,1 +1,1 @@
-export const API_URL = 'http://localhost';
+export const API_URL = 'https://music-node-js.vercel.app/';
