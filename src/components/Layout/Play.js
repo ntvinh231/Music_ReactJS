@@ -37,6 +37,11 @@ const Play = () => {
           showJumpControls={false}
           onClickNext={NextSong}
           onClickPrevious={PreviousSong}
+          onEnded={(e)=>{
+            if(e.isTrusted){
+              NextSong();
+            }
+          }}
         />
       </div>
     </div>
